@@ -70,27 +70,27 @@
 (use-package all-the-icons :ensure t)
 
 (let ((title "Δ M A C S ")
-	    (banner "~/.emacs.d/logo-small.png"))
+      (banner "~/.emacs.d/logo-small.png"))
 
-    (use-package dashboard
-	:ensure t
-	:config
-	(dashboard-setup-startup-hook)
-	(setq dashboard-banner-logo-title title)
-	(setq dashboard-startup-banner banner)
-	(setq dashboard-center-content t)
-	(setq dashboard-show-shortcuts t)
-	(setq dashboard-set-heading-icons t)
-	(setq dashboard-set-file-icons t)
-	(dashboard-modify-heading-icons '((recents . "file-text")))
-	(setq show-week-agenda-p t)
-	(setq dashboard-items '(
-				(projects . 5)
-				(recents . 5)
-				(agenda . 5)
-				))
-	(setq dashboard-set-navigator nil)
-	(setq dashboard-set-footer nil)))
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-banner-logo-title title)
+    (setq dashboard-startup-banner banner)
+    (setq dashboard-center-content t)
+    (setq dashboard-show-shortcuts t)
+    (setq dashboard-set-heading-icons t)
+    (setq dashboard-set-file-icons t)
+    (dashboard-modify-heading-icons '((recents . "file-text")))
+    (setq show-week-agenda-p t)
+    (setq dashboard-items '(
+			    (projects . 5)
+			    (recents . 5)
+			    (agenda . 5)
+			    ))
+    (setq dashboard-set-navigator nil)
+    (setq dashboard-set-footer nil)))
 
 (use-package smooth-scrolling
   :ensure t
@@ -105,7 +105,7 @@
 (use-package projectile
   :ensure t
   :init
-    (projectile-mode 1))
+  (projectile-mode 1))
 
 (use-package vterm
   :ensure t)
@@ -116,9 +116,9 @@
 	      ("C-x g" . 'magit-status)))
 
 (use-package darkroom
-    :ensure t
-    :bind (:map prog-mode-map
-		("C-M-z" . 'darkroom-mode)))
+  :ensure t
+  :bind (:map prog-mode-map
+	      ("C-M-z" . 'darkroom-mode)))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'global-hl-line-mode )
@@ -164,6 +164,14 @@
 (use-package yaml-mode
   :ensure t)
 
+(use-package fish-mode
+  :ensure t)
+
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
 (use-package org
   :ensure t
   :config
@@ -178,6 +186,9 @@
 			     (latex . t)
 			     ))
 
+(use-package htmlize
+  :ensure t)
+
 (use-package ox-reveal
   :ensure t)
 (setq org-reveal-root
@@ -186,10 +197,34 @@
 (use-package ox-epub
   :ensure t)
 
+(use-package org-tanglesync
+  :hook ((org-mode . org-tanglesync-mode)
+         ;; enable watch-mode globally:
+         ((prog-mode text-mode) . org-tanglesync-watch-mode))
+  :custom
+  (org-tanglesync-watch-files '("~/.config/README.org"))
+  :bind
+  (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
+   ( "C-c M-a" . org-tanglesync-process-buffer-automatic)))
+
 (use-package nov
-    :ensure t)
+  :ensure t)
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 (use-package pdf-tools
   :ensure t)
 (pdf-loader-install)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (elpy yaml-mode which-key vterm use-package smooth-scrolling rainbow-delimiters projectile pdf-tools ox-reveal ox-epub org-tanglesync nov magit htmlize haskell-mode format-all flycheck fish-mode evil-org evil-multiedit evil-collection doom-themes doom-modeline dashboard darkroom company))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

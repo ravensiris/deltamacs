@@ -248,6 +248,20 @@ More info at [[https://github.com/yoshiki/yaml-mode]]
 (use-package yaml-mode
   :ensure t)
 #+END_SRC
+*** Fish shell
+#+BEGIN_SRC elisp :tangle init.el
+(use-package fish-mode
+  :ensure t)
+
+#+END_SRC
+*** Python
+More info at [[https://github.com/jorgenschaefer/elpy]]
+#+BEGIN_SRC elisp :tangle init.el
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+#+END_SRC
 * Org-mode
 More info at [[https://orgmode.org/]]
 #+BEGIN_SRC elisp :tangle init.el
@@ -268,6 +282,12 @@ More info at [[https://orgmode.org/]]
 			     ))
 #+END_SRC
 ** Exporting
+*** Html
+More info at [[https://github.com/hniksic/emacs-htmlize]]
+#+BEGIN_SRC elisp :tangle init.el
+  (use-package htmlize
+    :ensure t)
+#+END_SRC
 *** Reveal.js
 More info at [[https://github.com/yjwen/org-reveal/]]
 #+BEGIN_SRC elisp :tangle init.el
@@ -282,6 +302,20 @@ More info at [[https://github.com/ofosos/ox-epub]]
 (use-package ox-epub
   :ensure t)
 #+END_SRC
+** Tanglesync
+More info at [[https://github.com/mtekman/org-tanglesync.el]]
+#+BEGIN_SRC elisp :tangle init.el
+(use-package org-tanglesync
+  :hook ((org-mode . org-tanglesync-mode)
+         ;; enable watch-mode globally:
+         ((prog-mode text-mode) . org-tanglesync-watch-mode))
+  :custom
+  (org-tanglesync-watch-files '("~/.config/README.org"))
+  :bind
+  (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
+   ( "C-c M-a" . org-tanglesync-process-buffer-automatic)))
+#+END_SRC
+
 * Document reading
 ** Epub
 Read more [[https://depp.brause.cc/nov.el/]]
