@@ -268,7 +268,8 @@ More info at [[https://orgmode.org/]]
 (use-package org
   :ensure t
   :config
-  (setq org-confirm-babel-evaluate nil))
+  (setq org-confirm-babel-evaluate nil)
+  (require 'org-tempo))
 #+END_SRC
 ** Languages loaded by Babel
 #+BEGIN_SRC elisp :tangle init.el
