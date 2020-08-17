@@ -176,7 +176,8 @@
   :ensure t
   :config
   (setq org-confirm-babel-evaluate nil)
-  (require 'org-tempo))
+  (require 'org-tempo)
+  (setq org-src-window-setup 'other-window))
 
 (org-babel-do-load-languages
  'org-babel-load-languages '(

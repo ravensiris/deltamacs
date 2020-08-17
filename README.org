@@ -265,11 +265,12 @@ More info at [[https://github.com/jorgenschaefer/elpy]]
 * Org-mode
 More info at [[https://orgmode.org/]]
 #+BEGIN_SRC elisp :tangle init.el
-(use-package org
-  :ensure t
-  :config
-  (setq org-confirm-babel-evaluate nil)
-  (require 'org-tempo))
+  (use-package org
+    :ensure t
+    :config
+    (setq org-confirm-babel-evaluate nil)
+    (require 'org-tempo)
+    (setq org-src-window-setup 'other-window))
 #+END_SRC
 ** Languages loaded by Babel
 #+BEGIN_SRC elisp :tangle init.el
