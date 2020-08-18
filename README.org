@@ -1,21 +1,22 @@
 #+TITLE: Δ M A C S Config
 #+AUTHOR: Raven's Iris
+#+PROPERTY: header-args :tangle init.el
 
 * UI Tweaks
 ** Remove bloat UI elements
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (menu-bar-mode 0)
 (toggle-scroll-bar 0)
 (tool-bar-mode 0)
 #+END_SRC
 
 ** Remove confirmation when closing a buffer
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (setq kill-buffer-query-functions nil)
 #+END_SRC
 
 ** Set font
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (defun set-font (name size)
     "Set font-family to NAME with SIZE."
     (set-frame-font (concat name " " (number-to-string size)) nil t))
@@ -23,7 +24,7 @@
   (set-font "Victor Mono Nerd Font" 12)
 #+END_SRC
 * Setup use-package
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
@@ -39,7 +40,7 @@
 #+END_SRC
 
 * Evil
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package evil
     :ensure t
     :hook
@@ -48,7 +49,7 @@
     :init (setq evil-want-keybinding nil))
 #+END_SRC
 ** Replacing
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package evil-multiedit
   :ensure t
   :bind
@@ -56,14 +57,14 @@
 	("R" . 'evil-multiedit-match-all)))
 #+END_SRC
 ** Org-mode
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package evil-org
     :after org
     :ensure t
     :init (evil-collection-init))
 #+END_SRC
 ** Evil collection
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package evil-collection
     :ensure t
     :after evil)
@@ -71,7 +72,7 @@
 * Theme
 ** Base
 More info at [[https://github.com/hlissner/emacs-doom-themes]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package doom-themes
   :ensure t
   :config
@@ -87,7 +88,7 @@ More info at [[https://github.com/hlissner/emacs-doom-themes]]
 #+END_SRC
 ** Modeline
 More info at [[https://github.com/seagle0128/doom-modeline]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
@@ -99,7 +100,7 @@ More info at [[https://github.com/seagle0128/doom-modeline]]
 #+END_SRC
 ** Icons
 Run *all-the-icons-install-fonts* on first run
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package all-the-icons :ensure t)
 #+END_SRC
 
@@ -110,41 +111,38 @@ Also the main reason to run *Δ M A C S* :
 
 [[./logo-small.png]]
 
-#+BEGIN_SRC elisp :tangle init.el
-(let ((title "Δ M A C S ")
-	    (banner "~/.emacs.d/logo-small.png"))
-
-    (use-package dashboard
-	:ensure t
-	:config
-	(dashboard-setup-startup-hook)
-	(setq dashboard-banner-logo-title title)
-	(setq dashboard-startup-banner banner)
-	(setq dashboard-center-content t)
-	(setq dashboard-show-shortcuts t)
-	(setq dashboard-set-heading-icons t)
-	(setq dashboard-set-file-icons t)
-	(dashboard-modify-heading-icons '((recents . "file-text")))
-	(setq show-week-agenda-p t)
-	(setq dashboard-items '(
-				(projects . 5)
-				(recents . 5)
-				(agenda . 5)
-				))
-	(setq dashboard-set-navigator nil)
-	(setq dashboard-set-footer nil)))
+#+BEGIN_SRC elisp 
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (dashboard-modify-heading-icons '((recents . "file-text")))
+    (setq dashboard-banner-logo-title "Δ M A C S "
+	  dashboard-startup-banner "~/.emacs.d/logo-small.png"
+	  dashboard-center-content t
+	  dashboard-show-shortcuts t
+	  dashboard-set-heading-icons t
+	  dashboard-set-file-icons t
+	  show-week-agenda-p t
+	  dashboard-items '(
+			    (projects . 5)
+			    (recents . 5)
+			    (agenda . 5)
+			   )
+	  dashboard-set-navigator nil
+	  dashboard-set-footer nil))
 #+END_SRC
 ** Smooth-scroll
 More info at [[https://github.com/aspiers/smooth-scrolling]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package smooth-scrolling
     :ensure t
     :init (smooth-scrolling-mode 1))
 #+END_SRC
 * Utils
-** Autocompletion but for keybindings
+** Which-key
 More info at [[https://github.com/justbur/emacs-which-key]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package which-key
   :ensure t
   :init (which-key-mode 1)
@@ -153,7 +151,7 @@ More info at [[https://github.com/justbur/emacs-which-key]]
 #+END_SRC
 ** Managing Projects
 More info at [[https://github.com/bbatsov/projectile]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package projectile
   :ensure t
   :init
@@ -161,13 +159,13 @@ More info at [[https://github.com/bbatsov/projectile]]
 #+END_SRC
 ** Terminal
 More info at [[https://github.com/akermu/emacs-libvterm]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package vterm
   :ensure t)
 #+END_SRC
 ** Magit
 More info at [[https://magit.vc]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package magit
     :ensure t
     :bind (:map text-mode-map
@@ -175,35 +173,86 @@ More info at [[https://magit.vc]]
 #+END_SRC
 ** Zen mode
 More info at [[https://github.com/joaotavora/darkroom]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package darkroom
       :ensure t
       :bind (:map prog-mode-map
 		  ("C-M-z" . 'darkroom-mode)))
 #+END_SRC
+** IDO
+   More info at [[https://www.emacswiki.org/emacs/InteractivelyDoThings]]
+   #+begin_src elisp 
+     (ido-mode 1)
+     (setq ido-enable-flex-matching t)
+   #+end_src
+*** Display vertically
+    More info at [[https://github.com/creichert/ido-vertical-mode.el/tree/16c4c1a112796ee0bcf401ea39d3e2643a89feaf]]
+    #+begin_src elisp
+      (use-package ido-vertical-mode
+	:ensure t
+	:init
+	(ido-vertical-mode 1)
+	:config
+	(setq ido-vertical-show-count t))
+    #+end_src
+*** Sort by mtime
+    More info at [[https://github.com/pkkm/ido-sort-mtime/tree/f638ff0c922af862f5211779f2311a27fde428eb]]
+    #+begin_src elisp
+      (use-package ido-sort-mtime
+	:ensure t
+	:init
+	(ido-sort-mtime-mode 1))
+    #+end_src
+** Smex
+   More info at [[https://github.com/nonsequitur/smex/tree/55aaebe3d793c2c990b39a302eb26c184281c42c]]
+   #+begin_src elisp
+     (use-package smex
+       :ensure t
+       :bind
+       (:map global-map
+	     ("M-x" . 'smex)
+	     ("M-X" . 'smex-major-mode-commands)))
+   #+end_src
+** Helpful
+   Read more at [[https://github.com/Wilfred/helpful]]
+   #+begin_src elisp
+     (use-package helpful
+       :ensure t
+       :bind
+       (:map global-map
+	     ("C-h f" . #'helpful-callable)
+	     ("C-h v" . #'helpful-variable)
+	     ("C-h k" . #'helpful-key)))
+   #+end_src
+** Ranger
+   Read more at [[https://github.com/ralesi/ranger.el]]
+   #+begin_src elisp
+     (use-package ranger
+       :ensure t)
+   #+end_src
 * Programming
 ** Line numbers and line highlight 
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (add-hook 'prog-mode-hook 'global-hl-line-mode )
 #+END_SRC
 ** Rainbow parentheses
 More info at [[https://github.com/Fanael/rainbow-delimiters]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
 ** Syntax checking
 More info at [[https://www.flycheck.org]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
 #+END_SRC
 ** Autocompletion
 More info at [[https://company-mode.github.io/]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package company
   :ensure t
   :hook (prog-mode . company-mode)
@@ -214,7 +263,7 @@ More info at [[https://company-mode.github.io/]]
 
 ** Code Formatting
 More info at [[https://github.com/lassik/emacs-format-all-the-code]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package format-all
   :ensure t
   :init (format-all-mode 1))
@@ -222,41 +271,42 @@ More info at [[https://github.com/lassik/emacs-format-all-the-code]]
 ** Languages
 *** Haskell
 More info at [[https://github.com/haskell/haskell-mode]]
-#+BEGIN_SRC elisp :tangle init.el
-(use-package haskell-mode
-  :ensure t
-  :bind
-  (:map evil-normal-state-map
-	("g i" . haskell-navigate-imports)
-	("g r" . haskell-mode-find-uses)
-	("g d" . haskell-mode-jump-to-def-or-tag)
-	("g D" . haskell-mode-jump-to-def-or-tag)
-	("g t" . haskell-mode-jump-to-tag))
-  (:map haskell-mode-map
-	("C-c C-l" . 'haskell-process-load-or-reload)
-	("C-`" . 'haskell-interactive-bring)
-	("C-c C-t" . 'haskell-process-do-type)
-	("C-c C-i" . 'haskell-process-do-info)
-	("C-c C-c" . 'haskell-process-cabal-build)
-	("C-c C-k" . 'haskell-interactive-mode-clear)
-	("C-c c" . 'haskell-process-cabal)))
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+#+BEGIN_SRC elisp 
+  (use-package haskell-mode
+    :ensure t
+    :bind
+    (:map evil-normal-state-map
+	  ("g i" . haskell-navigate-imports)
+	  ("g r" . haskell-mode-find-uses)
+	  ("g d" . haskell-mode-jump-to-def-or-tag))
+    (:map haskell-mode-map
+	  ("C-c C-l" . 'haskell-process-load-or-reload)
+	  ("C-`" . 'haskell-interactive-bring)
+	  ("C-c C-t" . 'haskell-process-do-type)
+	  ("C-c C-i" . 'haskell-process-do-info)
+	  ("C-c C-c" . 'haskell-process-cabal-build)
+	  ("C-c C-k" . 'haskell-interactive-mode-clear)
+	  ("C-c c" . 'haskell-process-cabal))
+    :hook
+    (haskell-mode . interactive-haskell)
+    :config
+    (setq haskell-process-type 'stack-ghci))
 #+END_SRC
 *** YAML
 More info at [[https://github.com/yoshiki/yaml-mode]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package yaml-mode
   :ensure t)
 #+END_SRC
 *** Fish shell
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package fish-mode
   :ensure t)
 
 #+END_SRC
 *** Python
 More info at [[https://github.com/jorgenschaefer/elpy]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package elpy
   :ensure t
   :init
@@ -264,16 +314,16 @@ More info at [[https://github.com/jorgenschaefer/elpy]]
 #+END_SRC
 * Org-mode
 More info at [[https://orgmode.org/]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package org
     :ensure t
     :config
-    (setq org-confirm-babel-evaluate nil)
-    (require 'org-tempo)
-    (setq org-src-window-setup 'other-window))
+    (setq org-confirm-babel-evaluate nil
+	  org-src-window-setup 'other-window)
+    (require 'org-tempo))
 #+END_SRC
 ** Languages loaded by Babel
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (org-babel-do-load-languages
  'org-babel-load-languages '(
 			     (C . t)
@@ -281,18 +331,19 @@ More info at [[https://orgmode.org/]]
 			     (js . t)
 			     (shell . t)
 			     (latex . t)
+			     (haskell . t)
 			     ))
 #+END_SRC
 ** Exporting
 *** Html
 More info at [[https://github.com/hniksic/emacs-htmlize]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package htmlize
     :ensure t)
 #+END_SRC
 *** Reveal.js
 More info at [[https://github.com/yjwen/org-reveal/]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package ox-reveal
     :ensure t)
   (setq org-reveal-root
@@ -300,36 +351,35 @@ More info at [[https://github.com/yjwen/org-reveal/]]
 #+END_SRC
 *** Epub
 More info at [[https://github.com/ofosos/ox-epub]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
 (use-package ox-epub
   :ensure t)
-#+END_SRC
-** Tanglesync
-More info at [[https://github.com/mtekman/org-tanglesync.el]]
-#+BEGIN_SRC elisp :tangle init.el
-(use-package org-tanglesync
-  :hook ((org-mode . org-tanglesync-mode)
-         ;; enable watch-mode globally:
-         ((prog-mode text-mode) . org-tanglesync-watch-mode))
-  :custom
-  (org-tanglesync-watch-files '("~/.config/README.org"))
-  :bind
-  (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
-   ( "C-c M-a" . org-tanglesync-process-buffer-automatic)))
 #+END_SRC
 
 * Document reading
 ** Epub
 Read more [[https://depp.brause.cc/nov.el/]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package nov
-    :ensure t)
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+    )
 #+END_SRC
 ** Pdf
 Read more [[https://github.com/politza/pdf-tools]]
-#+BEGIN_SRC elisp :tangle init.el
+#+BEGIN_SRC elisp 
   (use-package pdf-tools
-    :ensure t)
-  (pdf-loader-install)
+    :ensure t
+    :config
+      (pdf-loader-install))
 #+END_SRC
+*** Saving read progress
+Read more at [[https://github.com/nicolaisingh/saveplace-pdf-view]]
+#+BEGIN_SRC elisp 
+  (use-package saveplace-pdf-view
+    :ensure t
+    :config
+    (save-place-mode 1))
+#+END_SRC
+

@@ -69,28 +69,25 @@
 
 (use-package all-the-icons :ensure t)
 
-(let ((title "Δ M A C S ")
-	    (banner "~/.emacs.d/logo-small.png"))
-
-    (use-package dashboard
-	:ensure t
-	:config
-	(dashboard-setup-startup-hook)
-	(setq dashboard-banner-logo-title title)
-	(setq dashboard-startup-banner banner)
-	(setq dashboard-center-content t)
-	(setq dashboard-show-shortcuts t)
-	(setq dashboard-set-heading-icons t)
-	(setq dashboard-set-file-icons t)
-	(dashboard-modify-heading-icons '((recents . "file-text")))
-	(setq show-week-agenda-p t)
-	(setq dashboard-items '(
-				(projects . 5)
-				(recents . 5)
-				(agenda . 5)
-				))
-	(setq dashboard-set-navigator nil)
-	(setq dashboard-set-footer nil)))
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (dashboard-modify-heading-icons '((recents . "file-text")))
+  (setq dashboard-banner-logo-title "Δ M A C S "
+	dashboard-startup-banner "~/.emacs.d/logo-small.png"
+	dashboard-center-content t
+	dashboard-show-shortcuts t
+	dashboard-set-heading-icons t
+	dashboard-set-file-icons t
+	show-week-agenda-p t
+	dashboard-items '(
+			  (projects . 5)
+			  (recents . 5)
+			  (agenda . 5)
+			 )
+	dashboard-set-navigator nil
+	dashboard-set-footer nil))
 
 (use-package smooth-scrolling
   :ensure t
@@ -120,6 +117,39 @@
     :bind (:map prog-mode-map
 		("C-M-z" . 'darkroom-mode)))
 
+(ido-mode 1)
+(setq ido-enable-flex-matching t)
+
+(use-package ido-vertical-mode
+  :ensure t
+  :init
+  (ido-vertical-mode 1)
+  :config
+  (setq ido-vertical-show-count t))
+
+(use-package ido-sort-mtime
+  :ensure t
+  :init
+  (ido-sort-mtime-mode 1))
+
+(use-package smex
+  :ensure t
+  :bind
+  (:map global-map
+	("M-x" . 'smex)
+	("M-X" . 'smex-major-mode-commands)))
+
+(use-package helpful
+  :ensure t
+  :bind
+  (:map global-map
+	("C-h f" . #'helpful-callable)
+	("C-h v" . #'helpful-variable)
+	("C-h k" . #'helpful-key)))
+
+(use-package ranger
+  :ensure t)
+
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'global-hl-line-mode )
 
@@ -148,9 +178,7 @@
   (:map evil-normal-state-map
 	("g i" . haskell-navigate-imports)
 	("g r" . haskell-mode-find-uses)
-	("g d" . haskell-mode-jump-to-def-or-tag)
-	("g D" . haskell-mode-jump-to-def-or-tag)
-	("g t" . haskell-mode-jump-to-tag))
+	("g d" . haskell-mode-jump-to-def-or-tag))
   (:map haskell-mode-map
 	("C-c C-l" . 'haskell-process-load-or-reload)
 	("C-`" . 'haskell-interactive-bring)
@@ -158,8 +186,11 @@
 	("C-c C-i" . 'haskell-process-do-info)
 	("C-c C-c" . 'haskell-process-cabal-build)
 	("C-c C-k" . 'haskell-interactive-mode-clear)
-	("C-c c" . 'haskell-process-cabal)))
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+	("C-c c" . 'haskell-process-cabal))
+  :hook
+  (haskell-mode . interactive-haskell)
+  :config
+  (setq haskell-process-type 'stack-ghci))
 
 (use-package yaml-mode
   :ensure t)
@@ -175,9 +206,9 @@
 (use-package org
   :ensure t
   :config
-  (setq org-confirm-babel-evaluate nil)
-  (require 'org-tempo)
-  (setq org-src-window-setup 'other-window))
+  (setq org-confirm-babel-evaluate nil
+	org-src-window-setup 'other-window)
+  (require 'org-tempo))
 
 (org-babel-do-load-languages
  'org-babel-load-languages '(
@@ -186,6 +217,7 @@
 			     (js . t)
 			     (shell . t)
 			     (latex . t)
+			     (haskell . t)
 			     ))
 
 (use-package htmlize
@@ -199,20 +231,18 @@
 (use-package ox-epub
   :ensure t)
 
-(use-package org-tanglesync
-  :hook ((org-mode . org-tanglesync-mode)
-         ;; enable watch-mode globally:
-         ((prog-mode text-mode) . org-tanglesync-watch-mode))
-  :custom
-  (org-tanglesync-watch-files '("~/.config/README.org"))
-  :bind
-  (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
-   ( "C-c M-a" . org-tanglesync-process-buffer-automatic)))
-
 (use-package nov
-    :ensure t)
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  )
 
 (use-package pdf-tools
-  :ensure t)
-(pdf-loader-install)
+  :ensure t
+  :config
+    (pdf-loader-install))
+
+(use-package saveplace-pdf-view
+  :ensure t
+  :config
+  (save-place-mode 1))

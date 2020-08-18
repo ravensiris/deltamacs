@@ -18,3 +18,9 @@
 /transient/
 /elpy/
 /#README.org#
+/.emacs.desktop
+/bookmarks
+/ido.last
+/ido.last~
+/places
+/smex-items
