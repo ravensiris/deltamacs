@@ -99,6 +99,10 @@
   :config
   (which-key-setup-side-window-bottom))
 
+(defun insert-file-name ()
+  (interactive)
+  (insert (ido-read-file-name "Insert filename: ")))
+
 (use-package projectile
   :ensure t
   :init
@@ -184,9 +188,8 @@
 	("C-`" . 'haskell-interactive-bring)
 	("C-c C-t" . 'haskell-process-do-type)
 	("C-c C-i" . 'haskell-process-do-info)
-	("C-c C-c" . 'haskell-process-cabal-build)
-	("C-c C-k" . 'haskell-interactive-mode-clear)
-	("C-c c" . 'haskell-process-cabal))
+	("C-c h" . 'hoogle)
+	("C-c C-k" . 'haskell-interactive-mode-clear))
   :hook
   (haskell-mode . interactive-haskell)
   :config
@@ -246,3 +249,18 @@
   :ensure t
   :config
   (save-place-mode 1))
+
+(use-package interleave
+  :ensure t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(elpy-rpc-virtualenv-path 'current))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

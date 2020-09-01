@@ -149,6 +149,12 @@ More info at [[https://github.com/justbur/emacs-which-key]]
   :config
   (which-key-setup-side-window-bottom))
 #+END_SRC
+** Insert filename
+   #+begin_src elisp
+     (defun insert-file-name ()
+       (interactive)
+       (insert (ido-read-file-name "Insert filename: ")))
+   #+end_src
 ** Managing Projects
 More info at [[https://github.com/bbatsov/projectile]]
 #+BEGIN_SRC elisp 
@@ -284,9 +290,8 @@ More info at [[https://github.com/haskell/haskell-mode]]
 	  ("C-`" . 'haskell-interactive-bring)
 	  ("C-c C-t" . 'haskell-process-do-type)
 	  ("C-c C-i" . 'haskell-process-do-info)
-	  ("C-c C-c" . 'haskell-process-cabal-build)
-	  ("C-c C-k" . 'haskell-interactive-mode-clear)
-	  ("C-c c" . 'haskell-process-cabal))
+	  ("C-c h" . 'hoogle)
+	  ("C-c C-k" . 'haskell-interactive-mode-clear))
     :hook
     (haskell-mode . interactive-haskell)
     :config
@@ -382,4 +387,10 @@ Read more at [[https://github.com/nicolaisingh/saveplace-pdf-view]]
     :config
     (save-place-mode 1))
 #+END_SRC
+*** Taking notes
+More info at [[https://github.com/rudolfochrist/interleave]]
+#+begin_src elisp
+  (use-package interleave
+    :ensure t)
+#+end_src
 
